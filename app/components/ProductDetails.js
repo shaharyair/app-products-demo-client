@@ -1,16 +1,14 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 
 import TextField from "@mui/material/TextField";
 import { Button } from "@mui/material";
-import { CircularProgress } from "@mui/material";
 
 import Image from "next/image";
 import noImage from "../assests/noImage.jpg";
 
 import ClearIcon from "@mui/icons-material/Clear";
 
-export default function ProductDetails({ product, handleClearProduct }) {
+export default function ProductDetails({ product, handleClearProduct, handleUpdateProductInfo }) {
   const [formData, setFormData] = useState({ Name: "", Description: "", Price: "" });
 
   const handleChange = (e) => {
@@ -20,15 +18,6 @@ export default function ProductDetails({ product, handleClearProduct }) {
       ...prevFormData,
       [name]: value,
     }));
-  };
-
-  const handleUpdateProductInfo = (productId, e) => {
-    axios
-      .post(`http://localhost:3000/api/products/updateProduct/${productId}`, formData)
-      .then((response) => {})
-      .catch((error) => {
-        console.error(`Error updating product with id ${productId}:`, error);
-      });
   };
 
   useEffect(() => {
@@ -41,9 +30,12 @@ export default function ProductDetails({ product, handleClearProduct }) {
 
   return (
     <>
-      <div className=' relative w-1/2 flex flex-col justify-center items-center text-left border-[2px] border-black min-h-[50px] p-2.5 gap-4 bg-white drop-shadow-md'>
+      <div className=' relative w-full md:w-1/2 flex flex-col justify-center items-center text-left border-[2px] border-black min-h-[50px] p-2.5 gap-4 bg-white drop-shadow-md'>
         <Image src={noImage} alt={noImage} className='w-1/2 drop-shadow-sm border-[1px]' />
-        <form onSubmit={(e) => handleUpdateProductInfo(product._id, e)} className='w-full flex flex-col gap-2'>
+        <form
+          onSubmit={(e) => handleUpdateProductInfo(product._id, formData, e)}
+          className='w-full flex flex-col gap-2'
+        >
           <TextField
             variant='outlined'
             label='Name'
@@ -71,11 +63,19 @@ export default function ProductDetails({ product, handleClearProduct }) {
             className='font-thin text-sm md:text-base'
             required
           />
-          <Button variant='contained' type='submit' disabled={isNaN(formData.Price) || formData.Price <= 0 || !formData.Name}>
+          <Button
+            variant='contained'
+            type='submit'
+            disabled={isNaN(formData.Price) || formData.Price <= 0 || !formData.Name}
+            className='bg-blue-500'
+          >
             Save
           </Button>
         </form>
-        <div className='absolute top-4 right-4 hover:text-gray-500 text-black transition-colors cursor-pointer' onClick={() => handleClearProduct()}>
+        <div
+          className='absolute top-4 right-4 hover:text-gray-500 text-black transition-colors cursor-pointer'
+          onClick={() => handleClearProduct()}
+        >
           <ClearIcon sx={{ fontSize: 32 }} />
         </div>
       </div>
