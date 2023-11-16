@@ -4,10 +4,13 @@ import { productsApi } from "@/config";
 import ProductList from "./ProductList";
 import ProductDetails from "./ProductDetails";
 import ProductOptionsBar from "./ProductOptionsbar";
+import ProductPagination from "./ProductPagination";
 
 export default function ParentComponent() {
   const [productList, setProductList] = useState();
   const [productById, setProductById] = useState(null);
+  const [paginationInfo, setPaginationInfo] = useState();
+  const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
 
   const handleClearProduct = () => {
@@ -21,7 +24,8 @@ export default function ParentComponent() {
     productsApi
       .getAllProducts(query)
       .then((response) => {
-        setProductList(response.data);
+        setProductList(response.data.products);
+        setPaginationInfo(response.data.pagination);
         setLoading(false);
       })
       .catch((error) => {
@@ -49,7 +53,7 @@ export default function ParentComponent() {
     productsApi
       .updateProduct(productId, formData)
       .then((response) => {
-        fetchProductList();
+        switchToPage(currentPage);
       })
       .catch((error) => {
         console.error(`Error updating product with id ${productId}:`, error);
@@ -62,7 +66,7 @@ export default function ParentComponent() {
     productsApi
       .addNewProduct()
       .then((response) => {
-        fetchProductList();
+        switchToPage(currentPage);
       })
       .catch((error) => {
         console.error(`Error updating product with id ${productId}:`, error);
@@ -76,11 +80,19 @@ export default function ParentComponent() {
     productsApi
       .deleteProduct(productId)
       .then((response) => {
-        fetchProductList();
+        switchToPage(currentPage);
       })
       .catch((error) => {
         console.error(`Error deleting product with id ${productId}:`, error);
       });
+  };
+
+  const handleCurrentPageChange = (e, value) => {
+    setCurrentPage(value);
+  };
+
+  const switchToPage = (page = 1) => {
+    fetchProductList(`?page=${page}`);
   };
 
   useEffect(() => {
@@ -88,7 +100,7 @@ export default function ParentComponent() {
   }, []);
 
   return (
-    <main className='container flex flex-col gap-6'>
+    <main className='container flex flex-col gap-6 pb-6'>
       <ProductOptionsBar fetchProductList={fetchProductList} handleAddProduct={handleAddProduct} />
       <div className='flex flex-col-reverse md:flex-row justify-center items-start gap-6 w-full h-full'>
         <ProductList
@@ -105,6 +117,16 @@ export default function ParentComponent() {
           />
         )}
       </div>
+      {!loading && (
+        <div className='self-center'>
+          <ProductPagination
+            page={currentPage}
+            paginationInfo={paginationInfo}
+            handleCurrentPageChange={handleCurrentPageChange}
+            switchToPage={switchToPage}
+          />
+        </div>
+      )}
     </main>
   );
 }
