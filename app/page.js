@@ -1,6 +1,6 @@
 "use client";
 
-import ProductList from "./components/ProductList";
+import ProductMain from "./components/ProductMain";
 
 export default function Home() {
   return (
@@ -9,7 +9,7 @@ export default function Home() {
         <div className='w-full h-full bg-blue-500 flex items-center justify-center drop-shadow-md'>
           <h1 className='md:w-screen md:container text-2xl md:text-3xl font-thin py-8'>My Store</h1>
         </div>
-        <ProductList />
+        <ProductMain />
       </main>
     </>
   );
