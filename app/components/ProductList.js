@@ -13,7 +13,7 @@ export default function ProductList({ loading, productList, fetchProductById, ha
       ) : (
         <main className='flex justify-center flex-col gap-2 text-left w-full'>
           {productList &&
-            productList.products.map((product) => (
+            productList.map((product) => (
               <div
                 key={`Product id: ${product._id}`}
                 className='flex flex-col md:flex-row justify-between items-center border-[2px] border-black min-h-[50px] p-2.5 gap-4 bg-white drop-shadow-md cursor-pointer transition-colors hover:bg-blue-100'
