@@ -51,6 +51,7 @@ export default function ProductDetails({ product, handleClearProduct }) {
             value={formData.Name}
             onChange={handleChange}
             className='font-semibold md:text-lg w-full'
+            required
           />
           <TextField
             multiline
@@ -67,9 +68,10 @@ export default function ProductDetails({ product, handleClearProduct }) {
             name='Price'
             value={formData.Price}
             onChange={handleChange}
-            className='font-thin text-sm md:text-base mt-6'
+            className='font-thin text-sm md:text-base'
+            required
           />
-          <Button variant='contained' type='submit'>
+          <Button variant='contained' type='submit' disabled={isNaN(formData.Price) || formData.Price <= 0 || !formData.Name}>
             Save
           </Button>
         </form>
