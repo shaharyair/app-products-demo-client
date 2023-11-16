@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import { productsApi } from "@/config";
 
 import ProductList from "./ProductList";
 import ProductDetails from "./ProductDetails";
@@ -18,8 +18,8 @@ export default function ParentComponent() {
     setProductById(null);
     setLoading(true);
 
-    axios
-      .get(`http://localhost:3000/api/products${query}`)
+    productsApi
+      .getAllProducts(query)
       .then((response) => {
         setProductList(response.data);
         setLoading(false);
@@ -31,8 +31,8 @@ export default function ParentComponent() {
   };
 
   const fetchProductById = (productId) => {
-    axios
-      .get(`http://localhost:3000/api/products/${productId}`)
+    productsApi
+      .getProductById(productId)
       .then((response) => {
         setProductById(response.data.productById);
       })
@@ -46,8 +46,8 @@ export default function ParentComponent() {
     setProductById(null);
     e.preventDefault();
 
-    axios
-      .post(`http://localhost:3000/api/products/updateProduct/${productId}`, formData)
+    productsApi
+      .updateProduct(productId, formData)
       .then((response) => {
         fetchProductList();
       })
@@ -59,8 +59,8 @@ export default function ParentComponent() {
   const handleAddProduct = () => {
     setProductById(null);
 
-    axios
-      .post("http://localhost:3000/api/products/addNewProduct")
+    productsApi
+      .addNewProduct()
       .then((response) => {
         fetchProductList();
       })
@@ -73,8 +73,8 @@ export default function ParentComponent() {
     setProductById(null);
     e.stopPropagation();
 
-    axios
-      .delete(`http://localhost:3000/api/products/deleteProduct/${productId}`)
+    productsApi
+      .deleteProduct(productId)
       .then((response) => {
         fetchProductList();
       })
