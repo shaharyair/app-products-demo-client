@@ -12,6 +12,7 @@ export default function ParentComponent() {
   const [paginationInfo, setPaginationInfo] = useState();
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   const handleClearProduct = () => {
     setProductById(null);
@@ -47,7 +48,7 @@ export default function ParentComponent() {
   };
 
   const handleUpdateProductInfo = (productId, formData, e) => {
-    setProductById(null);
+    setError(false);
     e.preventDefault();
 
     productsApi
@@ -56,6 +57,7 @@ export default function ParentComponent() {
         switchToPage(currentPage);
       })
       .catch((error) => {
+        setError(error);
         console.error(`Error updating product with id ${productId}:`, error);
       });
   };
@@ -114,6 +116,9 @@ export default function ParentComponent() {
             product={productById}
             handleClearProduct={handleClearProduct}
             handleUpdateProductInfo={handleUpdateProductInfo}
+            currentPage={currentPage}
+            switchToPage={switchToPage}
+            error={error}
           />
         )}
       </div>
