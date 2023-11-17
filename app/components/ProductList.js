@@ -18,11 +18,11 @@ export default function ProductList({ loading, productList, fetchProductById, ha
             productList.map((product) => (
               <div
                 key={`Product id: ${product._id}`}
-                className='flex flex-col md:flex-row justify-between items-center border-[2px] border-black min-h-[50px] p-2.5 gap-4 bg-white drop-shadow-md cursor-pointer transition-colors hover:bg-blue-100'
+                className='overflow-hidden flex flex-col md:flex-row justify-between items-center border-[2px] border-black min-h-[50px] p-2.5 gap-4 bg-white drop-shadow-md cursor-pointer transition-colors hover:bg-blue-100'
                 onClick={() => fetchProductById(product._id)}
               >
                 <Image src={noImage} alt={noImage} className=' w-24 h-24 drop-shadow-sm border-[1px]' />
-                <div className='mr-auto'>
+                <div className={`mr-auto ${product.Description?.indexOf(" ") === -1 ? "break-all" : "break-words"}`}>
                   <h1 className='font-semibold md:text-lg'>
                     {product.Name !== undefined && product.Name !== "" ? product.Name : "No Name"}
                   </h1>
