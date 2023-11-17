@@ -9,7 +9,9 @@ export default function ProductList({ loading, productList, fetchProductById, ha
   return (
     <>
       {loading ? (
-        <CircularProgress size={100} />
+        <div className='absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%]'>
+          <CircularProgress size={100} />
+        </div>
       ) : (
         <main className='flex justify-center flex-col gap-2 text-left w-full'>
           {productList &&
