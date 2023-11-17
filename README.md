@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Product Management App
+
+This project is a Next.js application for managing a list of products. It provides a user-friendly interface to view, edit, add, delete, and search for products. The application incorporates basic styling to achieve a clean and organized layout.
+
+## Features
+
+1. **Display Product List:**
+
+   - Product items are presented in a clean and organized layout.
+   - Each product displays the product name, description, and a static/local image.
+
+2. **Product Details:**
+
+   - Clicking on a product item reveals detailed information on the right side of the screen.
+   - Users can edit product properties in the details pane.
+
+3. **Save Button:**
+
+   - The details pane features a "Save" button to save changes made to a product.
+   - The product list reflects the changes only after a successful save.
+
+4. **Sort Functionality:**
+
+   - Users can sort the product list by product name or creation date using a dropdown control.
+
+5. **Basic CSS Styling:**
+   - The application is styled with basic CSS to achieve a layout similar to the provided mockup.
+
+## Bonus Features
+
+1. **Delete Button:**
+
+   - Each product item includes a "Delete" button. Clicking it removes the product from the list.
+
+2. **Add Button:**
+
+   - An "Add" button allows users to add a new empty product item to the details pane.
+   - After filling in the required data and clicking "Save," the new product is added to the list.
+
+3. **Validation:**
+
+   - The details pane includes validation rules to ensure valid values for each property.
+   - The "Save" button is enabled only if the properties contain valid values.
+
+4. **Filtering:**
+
+   - Users can filter the list by typing free text into a text box. The list displays only products whose name or description contains the search text.
+
+5. **Paging:**
+   - Pagination is implemented to display 5 products per page.
+   - Users can navigate between pages with next and previous buttons, and the interface indicates the current page and the total number of pages.
 
 ## Getting Started
 
-First, run the development server:
+1. Clone the repository: `git clone https://github.com/shaharyair/app-products-demo-client.git`
+2. Install dependencies: `npm install`
+3. Set the environment variable for the API URL:
+   - Create a `.env.local` file in the root of your project.
+   - Add the following line to the `.env.local` file:
+     ```
+     NEXT_PUBLIC_API_URL = <your-products-app-api-url>
+     ```
+4. Run the development server: `npm run dev`
+5. Open your browser and visit `http://localhost:3000` to view the application.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Additional Information
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+If you are intrested in the server-side repository, you can find it [here](https://github.com/shaharyair/app-products-demo-server).
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Feel free to explore, enhance, and customize the application to meet your specific needs!
