@@ -72,7 +72,13 @@ export default function ProductDetails({ product, handleClearProduct, handleUpda
           <Button
             variant='contained'
             type='submit'
-            disabled={isNaN(formData.Price) || formData.Price <= 0 || !formData.Name}
+            disabled={
+              isNaN(formData.Price) ||
+              formData.Price <= 0 ||
+              !formData.Name ||
+              formData.Name.length >= 30 ||
+              formData.Description.length >= 200
+            }
             className='bg-blue-500'
           >
             Save
