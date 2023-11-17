@@ -22,7 +22,7 @@ export default function ProductList({ loading, productList, fetchProductById, ha
                 onClick={() => fetchProductById(product._id)}
               >
                 <Image src={noImage} alt={noImage} className=' w-24 h-24 drop-shadow-sm border-[1px]' />
-                <div className='mr-auto break-all'>
+                <div className={`mr-auto ${product.Description?.indexOf(" ") === -1 ? "break-all" : "break-words"}`}>
                   <h1 className='font-semibold md:text-lg'>
                     {product.Name !== undefined && product.Name !== "" ? product.Name : "No Name"}
                   </h1>
