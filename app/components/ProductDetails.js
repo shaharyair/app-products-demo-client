@@ -8,7 +8,7 @@ import noImage from "../assests/noImage.jpg";
 
 import ClearIcon from "@mui/icons-material/Clear";
 
-export default function ProductDetails({ product, handleClearProduct, handleUpdateProductInfo }) {
+export default function ProductDetails({ product, handleClearProduct, handleUpdateProductInfo, error }) {
   const [formData, setFormData] = useState({ Name: "", Description: "", Price: "" });
 
   const handleChange = (e) => {
@@ -26,6 +26,7 @@ export default function ProductDetails({ product, handleClearProduct, handleUpda
       Description: product.Description ?? "",
       Price: product.Price ?? "",
     });
+    console.log(product);
   }, [product]);
 
   return (
@@ -43,6 +44,8 @@ export default function ProductDetails({ product, handleClearProduct, handleUpda
             value={formData.Name}
             onChange={handleChange}
             className='font-semibold md:text-lg w-full'
+            error={error}
+            helperText={"Name must be up to 30 characters."}
             required
           />
           <TextField
@@ -53,6 +56,8 @@ export default function ProductDetails({ product, handleClearProduct, handleUpda
             value={formData.Description}
             onChange={handleChange}
             className='font-thin text-sm md:text-base w-full'
+            error={error}
+            helperText={"Description must be up to 200 characters."}
           />
           <TextField
             variant='outlined'
@@ -61,6 +66,7 @@ export default function ProductDetails({ product, handleClearProduct, handleUpda
             value={formData.Price}
             onChange={handleChange}
             className='font-thin text-sm md:text-base'
+            error={error}
             required
           />
           <Button
