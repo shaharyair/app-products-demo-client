@@ -17,6 +17,7 @@ export default function ParentComponent() {
   const [openProductDetails, setOpenProductDetails] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [sortQuery, setSortQuery] = useState("");
 
   // Function to fetch the list of products
   const fetchProductList = (query = "", secondQuery = "") => {
@@ -108,11 +109,6 @@ export default function ParentComponent() {
     setCurrentPage(value);
   };
 
-  // Function to switch to a specific page
-  const switchToPage = (page = 1) => {
-    fetchProductList(`?page=${page}`);
-  };
-
   // useEffect hook to fetch the product list when the component mounts
   useEffect(() => {
     fetchProductList();
@@ -126,6 +122,9 @@ export default function ParentComponent() {
         fetchProductList={fetchProductList}
         setOpenProductDetails={setOpenProductDetails}
         setProductById={setProductById}
+        sortQuery={sortQuery}
+        setSortQuery={setSortQuery}
+        currentPage={currentPage}
       />
       {/* Flex container for Product List and Product Details components */}
       <div className='flex flex-col-reverse md:flex-row justify-center items-start gap-6 w-full h-full'>
@@ -144,8 +143,6 @@ export default function ParentComponent() {
             handleUpdateProductInfo={handleUpdateProductInfo}
             handleAddProduct={handleAddProduct}
             setOpenProductDetails={setOpenProductDetails}
-            currentPage={currentPage}
-            switchToPage={switchToPage}
             error={error}
           />
         )}
@@ -156,8 +153,9 @@ export default function ParentComponent() {
           <ProductPagination
             page={currentPage}
             paginationInfo={paginationInfo}
+            fetchProductList={fetchProductList}
+            sortQuery={sortQuery}
             handleCurrentPageChange={handleCurrentPageChange}
-            switchToPage={switchToPage}
           />
         </div>
       )}

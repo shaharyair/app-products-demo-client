@@ -7,11 +7,16 @@ import { Button, TextField, IconButton, InputAdornment } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 
 // ProductOptionsBar component for displaying search and sorting options
-export default function ProductOptionsBar({ fetchProductList, setOpenProductDetails, setProductById }) {
+export default function ProductOptionsBar({
+  fetchProductList,
+  setOpenProductDetails,
+  setProductById,
+  currentPage,
+  setSortQuery,
+  sortQuery,
+}) {
   // State for the search text input
   const [searchText, setSearchText] = useState("");
-  // State for the selected sort query
-  const [sortQuery, setSortQuery] = useState("");
 
   // Function to handle changes in the search text field
   const handleSearchFieldChange = (e) => {
@@ -76,7 +81,7 @@ export default function ProductOptionsBar({ fetchProductList, setOpenProductDeta
             label='Sort By'
             onChange={(e) => {
               handleSortQueryChange(e);
-              fetchProductList(e.target.value);
+              fetchProductList(e.target.value, `?page=${currentPage}`);
             }}
           >
             <MenuItem value={sortQueriesArray.sortDateAsc}>Oldest to Newest</MenuItem>
