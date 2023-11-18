@@ -81,7 +81,7 @@ export default function ProductOptionsBar({
             label='Sort By'
             onChange={(e) => {
               handleSortQueryChange(e);
-              fetchProductList(e.target.value, `?page=${currentPage}`);
+              fetchProductList(`?page=${currentPage}`, e.target.value);
             }}
           >
             <MenuItem value={sortQueriesArray.sortDateAsc}>Oldest to Newest</MenuItem>

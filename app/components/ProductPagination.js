@@ -23,7 +23,7 @@ export default function ProductPagination({
           // Handle the change of the current page
           handleCurrentPageChange(e, value);
           // Switch to the selected page
-          fetchProductList(sortQuery, `?page=${value}`);
+          fetchProductList(`?page=${value}`, sortQuery);
         }}
       />
     </Stack>
