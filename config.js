@@ -18,6 +18,6 @@ export const productsApi = {
   getProductById: (productId) => customAxios.get(ENDPOINTS.getProductById(productId)),
   getAllProducts: (query) => customAxios.get(ENDPOINTS.getAllProducts(query)),
   updateProduct: (productId, data) => customAxios.post(ENDPOINTS.updateProduct(productId), data),
-  addNewProduct: () => customAxios.post(ENDPOINTS.addNewProduct),
+  addNewProduct: (data) => customAxios.post(ENDPOINTS.addNewProduct, data),
   deleteProduct: (productId) => customAxios.delete(ENDPOINTS.deleteProduct(productId)),
 };

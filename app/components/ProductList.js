@@ -5,7 +5,13 @@ import { Delete } from "@mui/icons-material";
 
 import noImage from "../assests/noImage.jpg";
 
-export default function ProductList({ loading, productList, fetchProductById, handleDeleteProduct }) {
+export default function ProductList({
+  loading,
+  productList,
+  fetchProductById,
+  handleDeleteProduct,
+  setOpenProductDetails,
+}) {
   return (
     <>
       {loading ? (
@@ -19,7 +25,10 @@ export default function ProductList({ loading, productList, fetchProductById, ha
               <div
                 key={`Product id: ${product._id}`}
                 className='overflow-hidden flex flex-col md:flex-row justify-between items-center border-[2px] border-black min-h-[50px] p-2.5 gap-4 bg-white drop-shadow-md cursor-pointer transition-colors hover:bg-blue-100'
-                onClick={() => fetchProductById(product._id)}
+                onClick={() => {
+                  fetchProductById(product._id);
+                  setOpenProductDetails(true);
+                }}
               >
                 <Image src={noImage} alt={noImage} className=' w-24 h-24 drop-shadow-sm border-[1px]' />
                 <div className={`mr-auto ${product.Description?.indexOf(" ") === -1 ? "break-all" : "break-words"}`}>
