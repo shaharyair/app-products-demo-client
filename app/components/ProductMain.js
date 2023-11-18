@@ -20,16 +20,16 @@ export default function ParentComponent() {
   const [sortQuery, setSortQuery] = useState("");
 
   // Function to fetch the list of products
-  const fetchProductList = (query = "", secondQuery = "") => {
+  const fetchProductList = (mainQuery = "", secondQuery = "") => {
     setOpenProductDetails(false);
     setLoading(true);
 
     if (secondQuery) {
-      query = `${query}&${secondQuery.replace("?", "")}`;
+      mainQuery = `${mainQuery}&${secondQuery.replace("?", "")}`;
     }
     // Making an API call to get the list of products
     productsApi
-      .getProducts(query)
+      .getProducts(mainQuery)
       .then((response) => {
         setProductList(response.data.products);
         setPaginationInfo(response.data.pagination);
@@ -63,7 +63,7 @@ export default function ParentComponent() {
     productsApi
       .updateProduct(productId, formData)
       .then((response) => {
-        switchToPage(currentPage);
+        fetchCurrentProductListState();
       })
       .catch((error) => {
         setError(error);
@@ -80,7 +80,7 @@ export default function ParentComponent() {
     productsApi
       .addNewProduct(formData)
       .then((response) => {
-        switchToPage(currentPage);
+        fetchCurrentProductListState();
       })
       .catch((error) => {
         setError(error);
@@ -97,7 +97,7 @@ export default function ParentComponent() {
     productsApi
       .deleteProduct(productId)
       .then((response) => {
-        switchToPage(currentPage);
+        fetchCurrentProductListState();
       })
       .catch((error) => {
         console.error(`Error deleting product with id ${productId}:`, error);
@@ -107,6 +107,10 @@ export default function ParentComponent() {
   // Function to handle changing the current page
   const handleCurrentPageChange = (e, value) => {
     setCurrentPage(value);
+  };
+
+  const fetchCurrentProductListState = () => {
+    fetchProductList(`?page=${currentPage}`, sortQuery);
   };
 
   // useEffect hook to fetch the product list when the component mounts
