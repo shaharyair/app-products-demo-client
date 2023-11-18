@@ -1,29 +1,34 @@
 import { useState, useEffect } from "react";
-
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-
 import { Button, TextField, IconButton, InputAdornment } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 
+// ProductOptionsBar component for displaying search and sorting options
 export default function ProductOptionsBar({ fetchProductList, setOpenProductDetails, setProductById }) {
+  // State for the search text input
   const [searchText, setSearchText] = useState("");
+  // State for the selected sort query
   const [sortQuery, setSortQuery] = useState("");
 
+  // Function to handle changes in the search text field
   const handleSearchFieldChange = (e) => {
     setSearchText(e.target.value);
   };
 
+  // Function to handle changes in the sort query dropdown
   const handleSortQueryChange = (e) => {
     setSortQuery(e.target.value);
   };
 
+  // Function to fetch products based on the search text
   const handleSearchProduct = (searchText) => {
     fetchProductList(`?search=${searchText}`);
   };
 
+  // Object containing sort queries for easy reference
   const sortQueriesArray = {
     sortDateAsc: "?sort=date",
     sortDateDesc: "?sort=date&order=desc",
@@ -33,7 +38,9 @@ export default function ProductOptionsBar({ fetchProductList, setOpenProductDeta
 
   return (
     <>
+      {/* Container for search and sorting options */}
       <main className='flex justify-start gap-4'>
+        {/* Button to add a new product */}
         <Button
           className='bg-blue-500 text-xs md:text-sm'
           variant='contained'
@@ -45,6 +52,7 @@ export default function ProductOptionsBar({ fetchProductList, setOpenProductDeta
         >
           Add Product
         </Button>
+        {/* Text field for entering search text */}
         <TextField
           variant='outlined'
           value={searchText}
@@ -60,6 +68,7 @@ export default function ProductOptionsBar({ fetchProductList, setOpenProductDeta
             ),
           }}
         />
+        {/* Dropdown for selecting sorting options */}
         <FormControl sx={{ minWidth: 120 }}>
           <InputLabel>Sort By</InputLabel>
           <Select
