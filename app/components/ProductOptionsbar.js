@@ -3,17 +3,12 @@ import { useState, useEffect } from "react";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import Select from "@mui/material/Select";
 
 import { Button, TextField, IconButton, InputAdornment } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 
-export default function ProductOptionsBar({
-  fetchProductList,
-  handleAddProduct,
-  setOpenProductDetails,
-  setProductById,
-}) {
+export default function ProductOptionsBar({ fetchProductList, setOpenProductDetails, setProductById }) {
   const [searchText, setSearchText] = useState("");
   const [sortQuery, setSortQuery] = useState("");
 
