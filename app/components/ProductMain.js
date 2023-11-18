@@ -71,7 +71,7 @@ export default function ParentComponent() {
         switchToPage(currentPage);
       })
       .catch((error) => {
-        console.error(`Error updating product with id ${productId}:`, error);
+        console.error(`Error adding new product:`, error);
       });
   };
 
