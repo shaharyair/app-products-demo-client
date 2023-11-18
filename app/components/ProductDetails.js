@@ -8,7 +8,13 @@ import noImage from "../assests/noImage.jpg";
 
 import ClearIcon from "@mui/icons-material/Clear";
 
-export default function ProductDetails({ product, handleClearProduct, handleUpdateProductInfo, error }) {
+export default function ProductDetails({
+  product,
+  handleAddProduct,
+  handleUpdateProductInfo,
+  setOpenProductDetails,
+  error,
+}) {
   const [formData, setFormData] = useState({ Name: "", Description: "", Price: "" });
 
   const handleChange = (e) => {
@@ -22,9 +28,9 @@ export default function ProductDetails({ product, handleClearProduct, handleUpda
 
   useEffect(() => {
     setFormData({
-      Name: product.Name ?? "",
-      Description: product.Description ?? "",
-      Price: product.Price ?? "",
+      Name: product?.Name ?? "",
+      Description: product?.Description ?? "",
+      Price: product?.Price ?? "",
     });
     console.log(product);
   }, [product]);
@@ -34,7 +40,13 @@ export default function ProductDetails({ product, handleClearProduct, handleUpda
       <div className=' relative w-full md:w-1/2 flex flex-col justify-center items-center text-left border-[2px] border-black min-h-[50px] p-2.5 gap-4 bg-white drop-shadow-md'>
         <Image src={noImage} alt={noImage} className='w-1/2 drop-shadow-sm border-[1px]' />
         <form
-          onSubmit={(e) => handleUpdateProductInfo(product._id, formData, e)}
+          onSubmit={(e) => {
+            if (product) {
+              handleUpdateProductInfo(product._id, formData, e);
+            } else {
+              handleAddProduct(formData, e);
+            }
+          }}
           className='w-full flex flex-col gap-2'
         >
           <TextField
@@ -86,7 +98,7 @@ export default function ProductDetails({ product, handleClearProduct, handleUpda
         </form>
         <div
           className='absolute top-4 right-4 hover:text-gray-500 text-black transition-colors cursor-pointer'
-          onClick={() => handleClearProduct()}
+          onClick={() => setOpenProductDetails(false)}
         >
           <ClearIcon sx={{ fontSize: 32 }} />
         </div>

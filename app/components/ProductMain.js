@@ -11,19 +11,16 @@ export default function ParentComponent() {
   const [productById, setProductById] = useState(null);
   const [paginationInfo, setPaginationInfo] = useState();
   const [currentPage, setCurrentPage] = useState(1);
+  const [openProductDetails, setOpenProductDetails] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
-  const handleClearProduct = () => {
-    setProductById(null);
-  };
-
   const fetchProductList = (query = "") => {
-    setProductById(null);
+    setOpenProductDetails(false);
     setLoading(true);
 
     productsApi
-      .getAllProducts(query)
+      .getProducts(query)
       .then((response) => {
         setProductList(response.data.products);
         setPaginationInfo(response.data.pagination);
@@ -62,21 +59,23 @@ export default function ParentComponent() {
       });
   };
 
-  const handleAddProduct = () => {
-    setProductById(null);
+  const handleAddProduct = (formData, e) => {
+    setError(false);
+    e.preventDefault();
 
     productsApi
-      .addNewProduct()
+      .addNewProduct(formData)
       .then((response) => {
         switchToPage(currentPage);
       })
       .catch((error) => {
-        console.error(`Error adding new product:`, error);
+        setError(error);
+        console.error(`Error adding new product ${formData}`, error);
       });
   };
 
   const handleDeleteProduct = (productId, e) => {
-    setProductById(null);
+    setOpenProductDetails(false);
     e.stopPropagation();
 
     productsApi
@@ -103,19 +102,25 @@ export default function ParentComponent() {
 
   return (
     <main className='container flex flex-col gap-6 pb-6'>
-      <ProductOptionsBar fetchProductList={fetchProductList} handleAddProduct={handleAddProduct} />
+      <ProductOptionsBar
+        fetchProductList={fetchProductList}
+        setOpenProductDetails={setOpenProductDetails}
+        setProductById={setProductById}
+      />
       <div className='flex flex-col-reverse md:flex-row justify-center items-start gap-6 w-full h-full'>
         <ProductList
           productList={productList}
           handleDeleteProduct={handleDeleteProduct}
           fetchProductById={fetchProductById}
+          setOpenProductDetails={setOpenProductDetails}
           loading={loading}
         />
-        {productById !== null && (
+        {openProductDetails && (
           <ProductDetails
             product={productById}
-            handleClearProduct={handleClearProduct}
             handleUpdateProductInfo={handleUpdateProductInfo}
+            handleAddProduct={handleAddProduct}
+            setOpenProductDetails={setOpenProductDetails}
             currentPage={currentPage}
             switchToPage={switchToPage}
             error={error}

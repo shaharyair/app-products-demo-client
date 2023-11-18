@@ -8,7 +8,12 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { Button, TextField, IconButton, InputAdornment } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 
-export default function ProductOptionsBar({ fetchProductList, handleAddProduct }) {
+export default function ProductOptionsBar({
+  fetchProductList,
+  handleAddProduct,
+  setOpenProductDetails,
+  setProductById,
+}) {
   const [searchText, setSearchText] = useState("");
   const [sortQuery, setSortQuery] = useState("");
 
@@ -38,7 +43,10 @@ export default function ProductOptionsBar({ fetchProductList, handleAddProduct }
           className='bg-blue-500 text-xs md:text-sm'
           variant='contained'
           value={searchText}
-          onClick={() => handleAddProduct()}
+          onClick={() => {
+            setProductById(null);
+            setOpenProductDetails(true);
+          }}
         >
           Add Product
         </Button>
