@@ -19,10 +19,13 @@ export default function ParentComponent() {
   const [error, setError] = useState(false);
 
   // Function to fetch the list of products
-  const fetchProductList = (query = "") => {
+  const fetchProductList = (query = "", secondQuery = "") => {
     setOpenProductDetails(false);
     setLoading(true);
 
+    if (secondQuery) {
+      query = `${query}&${secondQuery.replace("?", "")}`;
+    }
     // Making an API call to get the list of products
     productsApi
       .getProducts(query)
