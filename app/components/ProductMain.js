@@ -1,3 +1,4 @@
+// Importing necessary dependencies from React and other components
 import { useState, useEffect } from "react";
 import { productsApi } from "@/config";
 
@@ -6,7 +7,9 @@ import ProductDetails from "./ProductDetails";
 import ProductOptionsBar from "./ProductOptionsbar";
 import ProductPagination from "./ProductPagination";
 
+// Main component definition
 export default function ParentComponent() {
+  // State variables using the useState hook
   const [productList, setProductList] = useState();
   const [productById, setProductById] = useState(null);
   const [paginationInfo, setPaginationInfo] = useState();
@@ -15,10 +18,12 @@ export default function ParentComponent() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
+  // Function to fetch the list of products
   const fetchProductList = (query = "") => {
     setOpenProductDetails(false);
     setLoading(true);
 
+    // Making an API call to get the list of products
     productsApi
       .getProducts(query)
       .then((response) => {
@@ -32,6 +37,7 @@ export default function ParentComponent() {
       });
   };
 
+  // Function to fetch product details by ID
   const fetchProductById = (productId) => {
     productsApi
       .getProductById(productId)
@@ -44,10 +50,12 @@ export default function ParentComponent() {
       });
   };
 
+  // Function to handle updating product information
   const handleUpdateProductInfo = (productId, formData, e) => {
     setError(false);
     e.preventDefault();
 
+    // Making an API call to update product information
     productsApi
       .updateProduct(productId, formData)
       .then((response) => {
@@ -59,10 +67,12 @@ export default function ParentComponent() {
       });
   };
 
+  // Function to handle adding a new product
   const handleAddProduct = (formData, e) => {
     setError(false);
     e.preventDefault();
 
+    // Making an API call to add a new product
     productsApi
       .addNewProduct(formData)
       .then((response) => {
@@ -74,10 +84,12 @@ export default function ParentComponent() {
       });
   };
 
+  // Function to handle deleting a product
   const handleDeleteProduct = (productId, e) => {
     setOpenProductDetails(false);
     e.stopPropagation();
 
+    // Making an API call to delete a product
     productsApi
       .deleteProduct(productId)
       .then((response) => {
@@ -88,26 +100,33 @@ export default function ParentComponent() {
       });
   };
 
+  // Function to handle changing the current page
   const handleCurrentPageChange = (e, value) => {
     setCurrentPage(value);
   };
 
+  // Function to switch to a specific page
   const switchToPage = (page = 1) => {
     fetchProductList(`?page=${page}`);
   };
 
+  // useEffect hook to fetch the product list when the component mounts
   useEffect(() => {
     fetchProductList();
   }, []);
 
+  // Rendered JSX for the component
   return (
     <main className='container flex flex-col gap-6 pb-6'>
+      {/* Product Options Bar component */}
       <ProductOptionsBar
         fetchProductList={fetchProductList}
         setOpenProductDetails={setOpenProductDetails}
         setProductById={setProductById}
       />
+      {/* Flex container for Product List and Product Details components */}
       <div className='flex flex-col-reverse md:flex-row justify-center items-start gap-6 w-full h-full'>
+        {/* Product List component */}
         <ProductList
           productList={productList}
           handleDeleteProduct={handleDeleteProduct}
@@ -115,6 +134,7 @@ export default function ParentComponent() {
           setOpenProductDetails={setOpenProductDetails}
           loading={loading}
         />
+        {/* Product Details component */}
         {openProductDetails && (
           <ProductDetails
             product={productById}
@@ -127,6 +147,7 @@ export default function ParentComponent() {
           />
         )}
       </div>
+      {/* Pagination component */}
       {!loading && (
         <div className='self-center'>
           <ProductPagination
