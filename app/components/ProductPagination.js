@@ -3,7 +3,13 @@ import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 
 // ProductPagination component for displaying pagination controls
-export default function ProductPagination({ paginationInfo, page, switchToPage, handleCurrentPageChange }) {
+export default function ProductPagination({
+  paginationInfo,
+  page,
+  sortQuery,
+  fetchProductList,
+  handleCurrentPageChange,
+}) {
   return (
     <Stack spacing={2}>
       {/* Pagination component */}
@@ -17,7 +23,7 @@ export default function ProductPagination({ paginationInfo, page, switchToPage, 
           // Handle the change of the current page
           handleCurrentPageChange(e, value);
           // Switch to the selected page
-          switchToPage(value);
+          fetchProductList(sortQuery, `?page=${value}`);
         }}
       />
     </Stack>
