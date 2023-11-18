@@ -3,17 +3,12 @@ import { useState, useEffect } from "react";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import Select from "@mui/material/Select";
 
 import { Button, TextField, IconButton, InputAdornment } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 
-export default function ProductOptionsBar({
-  fetchProductList,
-  handleAddProduct,
-  setOpenProductDetails,
-  setProductById,
-}) {
+export default function ProductOptionsBar({ fetchProductList, setOpenProductDetails, setProductById }) {
   const [searchText, setSearchText] = useState("");
   const [sortQuery, setSortQuery] = useState("");
 
@@ -75,8 +70,8 @@ export default function ProductOptionsBar({
               fetchProductList(e.target.value);
             }}
           >
-            <MenuItem value={sortQueriesArray.sortDateAsc}>Oldest to Newset</MenuItem>
-            <MenuItem value={sortQueriesArray.sortDateDesc}>Newset to Oldest</MenuItem>
+            <MenuItem value={sortQueriesArray.sortDateAsc}>Oldest to Newest</MenuItem>
+            <MenuItem value={sortQueriesArray.sortDateDesc}>Newest to Oldest</MenuItem>
             <MenuItem value={sortQueriesArray.sortNameAsc}>Name (A - Z)</MenuItem>
             <MenuItem value={sortQueriesArray.sortNameDesc}>Name (Z - A)</MenuItem>
           </Select>
