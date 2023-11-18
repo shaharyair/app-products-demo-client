@@ -75,8 +75,8 @@ export default function ProductOptionsBar({
               fetchProductList(e.target.value);
             }}
           >
-            <MenuItem value={sortQueriesArray.sortDateAsc}>Oldest to Newset</MenuItem>
-            <MenuItem value={sortQueriesArray.sortDateDesc}>Newset to Oldest</MenuItem>
+            <MenuItem value={sortQueriesArray.sortDateAsc}>Oldest to Newest</MenuItem>
+            <MenuItem value={sortQueriesArray.sortDateDesc}>Newest to Oldest</MenuItem>
             <MenuItem value={sortQueriesArray.sortNameAsc}>Name (A - Z)</MenuItem>
             <MenuItem value={sortQueriesArray.sortNameDesc}>Name (Z - A)</MenuItem>
           </Select>
