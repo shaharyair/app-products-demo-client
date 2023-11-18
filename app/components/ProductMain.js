@@ -20,7 +20,7 @@ export default function ParentComponent() {
     setLoading(true);
 
     productsApi
-      .getAllProducts(query)
+      .getProducts(query)
       .then((response) => {
         setProductList(response.data.products);
         setPaginationInfo(response.data.pagination);
