@@ -5,8 +5,8 @@ import Stack from "@mui/material/Stack";
 // ProductPagination component for displaying pagination controls
 export default function ProductPagination({
   paginationInfo,
-  page,
-  sortQuery,
+  currentPage,
+  sortBy,
   fetchProductList,
   handleCurrentPageChange,
 }) {
@@ -17,13 +17,13 @@ export default function ProductPagination({
         // Total number of pages based on the paginationInfo prop
         count={paginationInfo && paginationInfo.totalPages}
         // Current active page
-        page={page}
+        page={currentPage}
         // Event handler for page change
         onChange={(e, value) => {
           // Handle the change of the current page
           handleCurrentPageChange(e, value);
           // Switch to the selected page
-          fetchProductList(`?page=${value}`, sortQuery);
+          fetchProductList(value, sortBy);
         }}
       />
     </Stack>
