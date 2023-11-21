@@ -8,7 +8,7 @@ const customAxios = axios.create({
 
 const ENDPOINTS = {
   addNewProduct: "/addNewProduct",
-  getProducts: (query) => `/${query}`,
+  getProducts: `/`,
   getProductById: (productId) => `/${productId}`,
   updateProduct: (productId) => `/updateProduct/${productId}`,
   deleteProduct: (productId) => `/deleteProduct/${productId}`,
@@ -16,7 +16,7 @@ const ENDPOINTS = {
 
 export const productsApi = {
   getProductById: (productId) => customAxios.get(ENDPOINTS.getProductById(productId)),
-  getProducts: (query) => customAxios.get(ENDPOINTS.getProducts(query)),
+  getProducts: (data) => customAxios.get(ENDPOINTS.getProducts, data),
   updateProduct: (productId, data) => customAxios.post(ENDPOINTS.updateProduct(productId), data),
   addNewProduct: (data) => customAxios.post(ENDPOINTS.addNewProduct, data),
   deleteProduct: (productId) => customAxios.delete(ENDPOINTS.deleteProduct(productId)),
