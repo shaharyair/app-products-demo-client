@@ -15,8 +15,8 @@ export default function ProductList({
     <>
       {loading ? (
         // Display a loading spinner if data is still loading
-        <div className='absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%]'>
-          <CircularProgress size={100} />
+        <div className='animate-fadeIn z-10 absolute top-0 left-0 backdrop-blur-sm flex justify-center items-center w-screen h-screen'>
+          <CircularProgress size={100} className='text-blue-400' />
         </div>
       ) : (
         // Display the product list if data is loaded
@@ -27,7 +27,7 @@ export default function ProductList({
               <div
                 key={`Product id: ${product._id}`}
                 // Product container with styling and click event to fetch product details
-                className='overflow-hidden flex flex-col md:flex-row justify-between items-center border-[2px] border-black min-h-[50px] p-2.5 gap-4 bg-white drop-shadow-md cursor-pointer transition-colors hover:bg-blue-100'
+                className=' animate-fadeIn overflow-hidden flex flex-col md:flex-row justify-between items-center border-[2px] border-black min-h-[50px] p-2.5 gap-4 bg-white drop-shadow-md cursor-pointer transition-colors hover:bg-blue-100'
                 onClick={() => {
                   fetchProductById(product._id);
                   setOpenProductDetails(true);
