@@ -9,11 +9,12 @@ import SearchIcon from "@mui/icons-material/Search";
 // ProductOptionsBar component for displaying search and sorting options
 export default function ProductOptionsBar({
   fetchProductList,
+  handleSearchProduct,
   setOpenProductDetails,
   setProductById,
   currentPage,
-  setSortQuery,
-  sortQuery,
+  setSortBy,
+  sortBy,
 }) {
   // State for the search text input
   const [searchText, setSearchText] = useState("");
@@ -25,21 +26,16 @@ export default function ProductOptionsBar({
 
   // Function to handle changes in the sort query dropdown
   const handleSortQueryChange = (e) => {
-    setSortQuery(e.target.value);
+    setSortBy(e.target.value);
   };
 
-  // Function to fetch products based on the search text
-  const handleSearchProduct = (searchText) => {
-    fetchProductList(`?search=${searchText}`);
-  };
-
-  // Object containing sort queries for easy reference
-  const sortQueriesArray = {
-    sortDateAsc: "?sort=date",
-    sortDateDesc: "?sort=date&order=desc",
-    sortNameAsc: "?sort=name",
-    sortNameDesc: "?sort=name&order=desc",
-  };
+  const selectOptions = [
+    { label: "None", value: "none" },
+    { label: "Oldest to Newest", value: "date" },
+    { label: "Newest to Oldest", value: "-date" },
+    { label: "Name (A - Z)", value: "name" },
+    { label: "Name (Z - A)", value: "-name" },
+  ];
 
   return (
     <>
@@ -77,17 +73,18 @@ export default function ProductOptionsBar({
         <FormControl sx={{ minWidth: 120 }}>
           <InputLabel>Sort By</InputLabel>
           <Select
-            value={sortQuery}
+            value={sortBy}
             label='Sort By'
             onChange={(e) => {
               handleSortQueryChange(e);
-              fetchProductList(`?page=${currentPage}`, e.target.value);
+              fetchProductList(currentPage, e.target.value);
             }}
           >
-            <MenuItem value={sortQueriesArray.sortDateAsc}>Oldest to Newest</MenuItem>
-            <MenuItem value={sortQueriesArray.sortDateDesc}>Newest to Oldest</MenuItem>
-            <MenuItem value={sortQueriesArray.sortNameAsc}>Name (A - Z)</MenuItem>
-            <MenuItem value={sortQueriesArray.sortNameDesc}>Name (Z - A)</MenuItem>
+            {selectOptions.map((option) => (
+              <MenuItem key={`Selection: ${option.label}`} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
           </Select>
         </FormControl>
       </main>

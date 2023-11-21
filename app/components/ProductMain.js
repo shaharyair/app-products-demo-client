@@ -13,23 +13,26 @@ export default function ParentComponent() {
   const [productList, setProductList] = useState();
   const [productById, setProductById] = useState(null);
   const [paginationInfo, setPaginationInfo] = useState();
-  const [currentPage, setCurrentPage] = useState(1);
   const [openProductDetails, setOpenProductDetails] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [sortQuery, setSortQuery] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [sortBy, setSortBy] = useState("");
 
   // Function to fetch the list of products
-  const fetchProductList = (mainQuery = "", secondQuery = "") => {
+  const fetchProductList = (currentPage = 1, sortBy = "", search = "") => {
     setOpenProductDetails(false);
     setLoading(true);
 
-    if (secondQuery) {
-      mainQuery = `${mainQuery}&${secondQuery.replace("?", "")}`;
-    }
+    const productListParams = {
+      page: currentPage,
+      sort: sortBy,
+      search: search,
+    };
+
     // Making an API call to get the list of products
     productsApi
-      .getProducts(mainQuery)
+      .getProducts({ params: productListParams })
       .then((response) => {
         setProductList(response.data.products);
         setPaginationInfo(response.data.pagination);
@@ -109,8 +112,12 @@ export default function ParentComponent() {
     setCurrentPage(value);
   };
 
+  const handleSearchProduct = (search) => {
+    fetchProductList(currentPage, sortBy, search);
+  };
+
   const fetchCurrentProductListState = () => {
-    fetchProductList(`?page=${currentPage}`, sortQuery);
+    fetchProductList(currentPage, sortBy);
   };
 
   // useEffect hook to fetch the product list when the component mounts
@@ -124,10 +131,11 @@ export default function ParentComponent() {
       {/* Product Options Bar component */}
       <ProductOptionsBar
         fetchProductList={fetchProductList}
+        handleSearchProduct={handleSearchProduct}
         setOpenProductDetails={setOpenProductDetails}
         setProductById={setProductById}
-        sortQuery={sortQuery}
-        setSortQuery={setSortQuery}
+        sortBy={sortBy}
+        setSortBy={setSortBy}
         currentPage={currentPage}
       />
       {/* Flex container for Product List and Product Details components */}
@@ -155,10 +163,10 @@ export default function ParentComponent() {
       {!loading && (
         <div className='self-center'>
           <ProductPagination
-            page={currentPage}
+            currentPage={currentPage}
             paginationInfo={paginationInfo}
             fetchProductList={fetchProductList}
-            sortQuery={sortQuery}
+            sortBy={sortBy}
             handleCurrentPageChange={handleCurrentPageChange}
           />
         </div>
