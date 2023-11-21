@@ -37,7 +37,7 @@ export default function ProductDetails({
   return (
     <>
       {/* Container for displaying product details and form */}
-      <div className=' relative w-full md:w-1/2 flex flex-col justify-center items-center text-left border-[2px] border-black min-h-[50px] p-2.5 gap-4 bg-white drop-shadow-md'>
+      <div className='animate-fadeIn relative w-full md:w-1/2 flex flex-col justify-center items-center text-left border-[2px] border-black min-h-[50px] p-2.5 gap-4 bg-white drop-shadow-md'>
         {/* Product image with fallback image */}
         <Image src={noImage} alt={noImage} className='w-1/2 drop-shadow-sm border-[1px]' />
         {/* Form for updating or adding product information */}
