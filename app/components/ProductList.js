@@ -27,7 +27,7 @@ export default function ProductList({
               <div
                 key={`Product id: ${product._id}`}
                 // Product container with styling and click event to fetch product details
-                className='overflow-hidden flex flex-col md:flex-row justify-between items-center border-[2px] border-black min-h-[50px] p-2.5 gap-4 bg-white drop-shadow-md cursor-pointer transition-colors hover:bg-blue-100'
+                className=' animate-fadeIn overflow-hidden flex flex-col md:flex-row justify-between items-center border-[2px] border-black min-h-[50px] p-2.5 gap-4 bg-white drop-shadow-md cursor-pointer transition-colors hover:bg-blue-100'
                 onClick={() => {
                   fetchProductById(product._id);
                   setOpenProductDetails(true);
