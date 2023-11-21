@@ -15,8 +15,8 @@ export default function ProductList({
     <>
       {loading ? (
         // Display a loading spinner if data is still loading
-        <div className='absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%]'>
-          <CircularProgress size={100} />
+        <div className='animate-fadeIn z-10 absolute top-0 left-0 backdrop-blur-sm flex justify-center items-center w-screen h-screen'>
+          <CircularProgress size={100} className='text-blue-400' />
         </div>
       ) : (
         // Display the product list if data is loaded
